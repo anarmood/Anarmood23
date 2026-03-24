@@ -59,7 +59,7 @@ def run_task():
     asyncio.run(download_and_send())
 
 # İndidən etibarən hər 1 dəqiqədən bir yoxla (və ya saatlarını bura yaz)
-schedule.every().day.at("23:48").do(run_task) # <--- Yoxlamaq üçün saatı dəyişə bilərsən
+schedule.every().day.at("00:05").do(run_task) # <--- Yoxlamaq üçün saatı dəyişə bilərsən
 
 if name == "__main__":
     # Serveri ayrı bir "qolda" (thread) başlat
