@@ -53,5 +53,4 @@ schedule.every().day.at("21:00").do(run_task)
 
 print("Bot aktivdir...")
 while True:
-    schedule.run_pending()
-    time.sleep(60)
+    run_task()
