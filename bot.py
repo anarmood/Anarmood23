@@ -48,7 +48,7 @@ def run_task():
     asyncio.run(download_and_send())
 
 # SAATLAR
-schedule.every().day.at("17:00").do(run_task)
+schedule.every().day.at("23:35").do(run_task)
 schedule.every().day.at("21:00").do(run_task)
 
 print("Bot aktivdir...")
