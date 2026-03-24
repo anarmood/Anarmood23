@@ -55,7 +55,7 @@ def run_task():
     asyncio.run(download_and_send())
 
 # TEST ÜÇÜN VAXTI İNDİKİNDƏN 5 DƏQİQƏ SONRAYA QOY
-schedule.every().day.at("00:31").do(run_task)
+schedule.every().day.at("00:34").do(run_task)
 
 if name == "__main__":
     t = Thread(target=run_web_server)
