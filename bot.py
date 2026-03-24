@@ -55,13 +55,11 @@ def run_task():
     asyncio.run(download_and_send())
 
 # TEST ÜÇÜN VAXTI İNDİKİNDƏN 5 DƏQİQƏ SONRAYA QOY
-schedule.every().day.at("00:40").do(run_task)
 
 if __name__ == "__main__":
     t = Thread(target=run_web_server)
     t.daemon = True
     t.start()
     print("Bot aktivdir...")
+    run_tusk()
     while True:
-        schedule.run_pending()
-        time.sleep(1)
