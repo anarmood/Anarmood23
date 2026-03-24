@@ -4,10 +4,20 @@ import schedule
 import time
 import yt_dlp
 from telegram import Bot
+from flask import Flask
+from threading import Thread
 
-# --- AYARLAR ---
-# @BotFather-dən aldığınız kodu aşağıdakı dırnaqların arasına yapışdırın
-TOKEN = "8523694849:AAEGB3IIg1amfXMcbklxxIX4OZ71uBcFtuU" 
+# --- RENDER ÜÇÜN SAXTA SERVER ---
+app = Flask('')
+@app.route('/')
+def home():
+    return "Bot oyaqdır!"
+
+def run_web_server():
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
+# --- BOT AYARLARI ---
+TOKEN = "8523694849:AAEGB3IIg1amfXMcbklxxIX4OZ71uBcFtuU" # <--- Tokenini bura yazmağı unutma!
 CHANNEL_ID = "@alfamood"        
 SIGNATURE = "🎵 @alfamood | Günün Trend Mahnısı"
 
@@ -41,16 +51,23 @@ async def download_and_send():
                     caption=f"🎧 {title}\n\n{SIGNATURE}"
                 )
             os.remove(file_name)
+            print("Mahnı uğurla göndərildi!")
     except Exception as e:
         print(f"Xəta: {e}")
 
 def run_task():
     asyncio.run(download_and_send())
 
-# SAATLAR
-schedule.every().day.at("23:35").do(run_task)
-schedule.every().day.at("21:00").do(run_task)
+# İndidən etibarən hər 1 dəqiqədən bir yoxla (və ya saatlarını bura yaz)
+schedule.every().day.at("23:45").do(run_task) # <--- Yoxlamaq üçün saatı dəyişə bilərsən
 
-print("Bot aktivdir...")
-while True:
-    run_task()
+if name == "__main__":
+    # Serveri ayrı bir "qolda" (thread) başlat
+    t = Thread(target=run_web_server)
+    t.start()
+    
+    # Botu başlat
+    print("Bot aktivdir...")
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
