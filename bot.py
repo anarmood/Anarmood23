@@ -51,9 +51,9 @@ def run_task():
     asyncio.run(download_and_send())
 
 # Test üçün vaxtı indikindən 2-3 dəqiqə sonraya qoy
-schedule.every().day.at("00:20").do(run_task)
+schedule.every().day.at("00:25").do(run_task)
 
-if name == "__main__":
+if __name__ == "__main__":
     t = Thread(target=run_web_server)
     t.start()
     print("Bot aktivdir...")
